@@ -2,9 +2,14 @@ import nltk
 from nltk.sentiment import SentimentIntensityAnalyzer
 from pymongo import MongoClient
 nltk.download('vader_lexicon')
+import os
+from dotenv import load_dotenv
+
+load_dotenv(".env.local")
 
 # Connect to MongoDB
-client = MongoClient("mongodb+srv://mybtp:mybtp@node-api.cqbp1.mongodb.net/?retryWrites=true&w=majority&appName=Node-API")
+MONGO_URI = os.getenv("MONGO_URI")
+client = MongoClient(MONGO_URI)
 db = client["Telegram"]
 chat_history_collection = db["ChatHistory"]
 

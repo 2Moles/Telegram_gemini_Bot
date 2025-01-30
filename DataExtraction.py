@@ -1,15 +1,20 @@
+import os
 import streamlit as st
 import pandas as pd
 import time
 from pymongo import MongoClient
 import nltk
+from dotenv import load_dotenv
+
 from nltk.sentiment import SentimentIntensityAnalyzer
+load_dotenv(".env.local")
 
 # Download NLTK Sentiment Lexicon
 nltk.download("vader_lexicon")
 
 # MongoDB Connection
-client = MongoClient("mongodb+srv://mybtp:mybtp@node-api.cqbp1.mongodb.net/?retryWrites=true&w=majority&appName=Node-API")
+MONGO_URI = os.getenv("MONGO_URI")
+client = MongoClient(MONGO_URI)
 db = client["Telegram"]
 chat_history_collection = db["ChatHistory"]
 
